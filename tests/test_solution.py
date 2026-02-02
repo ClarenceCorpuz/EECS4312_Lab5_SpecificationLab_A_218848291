@@ -1,5 +1,5 @@
-## Student Name:
-## Student ID: 
+## Student Name: Clarence Corpuz    
+## Student ID: 218848291
 
 """
 Public test suite for the meeting slot suggestion exercise.
