@@ -1,9 +1,16 @@
 ## Student Name: Clarence Corpuz
 ## Student ID: 218848291  
---------------------------------------------------
-Prompt 1: from solution import suggest_slots says that there is no module named solution
+
+    --------------------------------------------------
+    Prompt 1: "Copy paste your question"
+    --------------------------------------------------
+from solution import suggest_slots says that there is no module named solution
+
+    --------------------------------------------------
+    LLM Response 1: "Copy paste LLMs response"
+    -------------------------------------------------
 LLM Response 1: 
---------------------------------------------------
+
 from solution import suggest_slots means:
 
 “There is a file called solution.py somewhere Python can see.”
@@ -99,12 +106,15 @@ I’ll give you the exact one-line fix for your setup.
 
 
 
---------------------------------------------------
-Prompt 2: "Copy paste your question"
-LLM Response 2: "Copy paste LLMs response"
---------------------------------------------------
+    --------------------------------------------------
+    Prompt 2: "Copy paste your question"
+    --------------------------------------------------
 
 Prompt 2 - terminal provides Traceback: /cs/local/lib/python3.13/importlib/__init__.py:88: in import_module return _bootstrap._gcd_import(name[level:], package, level) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ tests/test_solution.py:12: in <module> from solution import suggest_slots E ModuleNotFoundError: No module named 'solution'
+
+    --------------------------------------------------
+    LLM Response 2: "Copy paste LLMs response"
+    --------------------------------------------------
 
 LLM Response - 
 
@@ -190,4 +200,18 @@ how you’re running pytest
 
 and I’ll confirm this 100% — but I’m very confident this is the fix.
 
+    --------------------------------------------------
+    Prompt 3: "Copy paste your question"
+    --------------------------------------------------
+revise the solutions code to allow for the new constraint
 
+    --------------------------------------------------
+    LLM Response 3: "Copy paste LLMs response"
+    --------------------------------------------------
+
+latest_start = WORK_END - meeting_duration
+if day == "Fri":
+    latest_start = min(latest_start, FRIDAY_CUTOFF)
+
+    valid_slots = []
+    start = WORK_START
