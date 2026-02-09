@@ -1,6 +1,6 @@
 ## TODO:
-## Student Name:
-## Student ID: 
+## Student Name:Clarence Corpuz  
+## Student ID: 218848291
 
 # Meeting Slot Suggestion Lab Repository
 
