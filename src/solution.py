@@ -8,6 +8,8 @@ Implement the function `suggest_slots` to return a list of valid meeting start t
 on a given day, taking into account working hours, and possible specific constraints. See the lab handout
 for full requirements.
 """
+
+
 from typing import List, Dict
 
 def suggest_slots(
@@ -15,6 +17,7 @@ def suggest_slots(
     meeting_duration: int,
     day: str
 ) -> List[str]:
+
     """
     Suggest possible meeting start times for a given day.
 
@@ -34,25 +37,46 @@ def suggest_slots(
     def to_time_str(minutes: int) -> str:
         return f"{minutes // 60:02d}:{minutes % 60:02d}"
 
-    MEETINGSTART = to_minutes("09:00")
-    MEETINGEND = to_minutes("17:00")
-    SLOT_STEP = 30  # minutes
+    WORK_START = to_minutes("09:00")
+    WORK_END = to_minutes("17:00")
+    LUNCH_START = to_minutes("12:00")
+    LUNCH_END = to_minutes("13:00")
+    FRIDAY_CUTOFF = to_minutes("15:00")
+    SLOT_STEP = 15  # minutes
 
-    # Convert events to minute intervals
-    busy_intervals = [
-        (to_minutes(e["start"]), to_minutes(e["end"]))
-        for e in events
-    ]
+    # Convert events to minute intervals, ignoring those outside working hours
+    busy_intervals = []
+    for e in events:
+        start = to_minutes(e["start"])
+        end = to_minutes(e["end"])
+
+        if end <= WORK_START or start >= WORK_END:
+            continue
+
+        busy_intervals.append(
+            (max(start, WORK_START), min(end, WORK_END))
+        )
 
     busy_intervals.sort()
 
-    valid_slots = []
+    # Determine latest possible start time
+    latest_start = WORK_END - meeting_duration
 
-    start = MEETINGSTART
-    latest_start = MEETINGEND = to_minutes("17:00") - meeting_duration
+
+    if day == "Fri":
+        latest_start = min(latest_start, FRIDAY_CUTOFF) #Lab 6 requirements for Friday Cutoff cannot start after 15:00
+
+    valid_slots = []
+    start = WORK_START
 
     while start <= latest_start:
         end = start + meeting_duration
+
+        # Block lunch break starts
+        if LUNCH_START <= start < LUNCH_END:
+            start += SLOT_STEP
+            continue
+
         conflict = False
         for busy_start, busy_end in busy_intervals:
             if start < busy_end and end > busy_start:
