@@ -39,6 +39,8 @@ def suggest_slots(
 
     WORK_START = to_minutes("09:00")
     WORK_END = to_minutes("17:00")
+    LUNCH_START = to_minutes("12:00")
+    LUNCH_END = to_minutes("13:00")
     FRIDAY_CUTOFF = to_minutes("15:00")
     SLOT_STEP = 15  # minutes
 
@@ -69,6 +71,11 @@ def suggest_slots(
 
     while start <= latest_start:
         end = start + meeting_duration
+
+        # Block lunch break starts
+        if LUNCH_START <= start < LUNCH_END:
+            start += SLOT_STEP
+            continue
 
         conflict = False
         for busy_start, busy_end in busy_intervals:
